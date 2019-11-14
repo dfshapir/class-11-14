@@ -1,0 +1,30 @@
+---
+title: "11-14"
+author: "Daniel Shapiro"
+date: "11/14/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(googlesheets4)
+library(tidyverse)
+library(googlesheets)
+```
+
+```{r}
+sheets_deauth()
+sht <- read_sheet("1QA_Xv9tAbKhwFdQpnVa2hTjhEdg5zAl4WY5EVanWSo0")
+```
+
+```{r}
+f <- glm(formula = dvote ~ dem_adv, data = sht)
+
+pl <- sht %>%
+  ggplot(aes(dvote, dem_adv)) +
+  geom_jitter(height = 0.2, width = 0.1, size = 0.5) +
+  geom_smooth(method = "lm")
+
+pl
+```
+
